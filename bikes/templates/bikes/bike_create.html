@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+{% block stolen %}
+{% endblock stolen%}
+
+{% block content %}
+{% load materializecss %}
+<div class="container">
+<form>
+	<label for='id_owner'> {{ form.owner.label }} </label> 
+	<input disabled type="text" name="" value="{{ user.email }}"> 
+</form>
+	<form method="post" enctype='multipart/form-data'>{% csrf_token %}	
+		<div class="row">
+				<input type="hidden" name="owner" id="id_owner" value="{{ user.id }}">
+				{{ form.bike_brand|materializecss:'s12 m4' }}
+				{{ form.bike_brand|materializecss:'s12 m4' }}
+		    	{{ form.bike_serial_number|materializecss:'s12 m4' }}
+		</div>
+		<div class="row">
+		        {{ form.bike_image1|materializecss:'s12 m4' }}
+		        {{ form.bike_image2|materializecss:'s12 m4' }}
+		        {{ form.bike_image3|materializecss:'s12 m4' }}
+		</div>
+        <button class="waves-effect waves-light btn" type="submit" name="Submit"><i class="material-icons right">save</i>Submit</button>
+    </form>
+</div>
+{% endblock %}

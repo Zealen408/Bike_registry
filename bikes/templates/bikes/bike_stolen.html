@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+	<div class="row">
+		{% for bike in bikes %}
+			<div class="col s12 m6">
+				<div class="card">
+					<div class="card-image">
+						{% if bike.bike_image1 %}
+							<img src="{{ bike.bike_image1.url }}">
+						{% endif %}
+						<span class="card-title">{% if bike.bike_brand%} {{ bike.bike_brand }} {% endif %}</span>
+					</div>
+					<div class="card-content">
+						<p>{{ bike.bike_serial_number }}</p>
+						<p>{{ user.email }}</p>
+					</div>
+
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	<div class="fixed-action-btn">
+		<a href="{% url 'bikes:create' %}" class="btn-floating btn-large teal">
+			<i class="large material-icons">add</i>
+		</a>
+	</div>
+{% endblock %}
+
+

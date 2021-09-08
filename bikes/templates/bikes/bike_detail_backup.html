@@ -1,0 +1,117 @@
+{% extends 'main/base.html' %}
+{% block stolen %}
+{% endblock stolen%}
+
+{% block content %}
+{% load materializecss %}
+	<form>
+		<div class="row">
+			<div class="input-field col s12 m6">
+ 				<label for="owner">Owner:</label>
+				<input disabled id="owner" type="text" value="{{ bike.owner.email }}">
+		    </div>
+			<div class="input-field col s12 m6">
+				<label for="Created">Created On:</label>
+				<input disabled id="Created" type="text" value="{{ bike.created_on }}">
+			</div>
+		</div>
+	</form>
+	<form method="post" enctype='multipart/form-data'>{% csrf_token %}	
+		<div class="row">
+			{{ form.owner }}
+			<div class="input-field col s12 m6 l4">
+		        {% if form.bike_brand.errors %}
+		        	<ul class="errorlist">
+		        		{% for error in form.bike_brand.errors %}
+		        			<li>{{ error }}</li>
+		    			{% endfor %}
+		        	</ul>
+		        {% endif %}
+ 				<label for='id_username'> {{ form.bike_brand.label }}: </label> 
+		        {{ form.bike_brand }}
+		    </div>
+			<div class="input-field col s12 m6 l4">
+		        {% if form.bike_model.errors %}
+		        	<ul class="errorlist">
+		        		{% for error in form.bike_model.errors %}
+		        			<li>{{ error }}</li>
+		    			{% endfor %}
+		        	</ul>
+		        {% endif %}
+ 				<label for='id_username'> {{ form.bike_model.label }}: </label>  
+		        {{ form.bike_model }}
+		    </div>
+		    <div class="input-field col s12 m6 l4">
+		        {% if form.bike_serial_number.errors %}
+		        	<ul class="errorlist">
+		        		{% for error in form.bike_serial_number.errors %}
+		        			<li>{{ error }}</li>
+		    			{% endfor %}
+		        	</ul>
+		        {% endif %}
+ 				<label for='id_username'> {{ form.bike_serial_number.label }}: </label>   
+		        {{ form.bike_serial_number }}
+		    </div>
+		    <div class="input-field col s12 m6 l4">
+		        {% if form.bike_stolen.errors %}
+		        	<ul class="errorlist">
+		        		{% for error in form.bike_stolen.errors %}
+		        			<li>{{ error }}</li>
+		    			{% endfor %}
+		        	</ul>
+		        {% endif %}
+			    <label>
+					{{ form.bike_stolen }}
+					<!-- <input type="checkbox" name="bike_stolen" id="id_bike_stolen"> -->
+					<span>{{ form.bike_stolen.label }}</span>
+				</label>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="input-field col s12 m6 l4">
+		        {% if form.bike_image1.errors %}
+		        	<ul class="errorlist">
+		        		{% for error in form.bike_image1.errors %}
+		        			<li>{{ error }}</li>
+		    			{% endfor %}
+		        	</ul>
+		        {% endif %}
+				{% if bike.bike_image1 %}
+					<img class="responsive-img materialboxed" src="{{ bike.bike_image1.url }}">
+				{% endif %} 
+		        {{ form.bike_image1 }}
+		    </div>
+
+			<div class="input-field col s12 m6 l4">
+		        {% if form.bike_image2.errors %}
+		        	<ul class="errorlist">
+		        		{% for error in form.bike_image2.errors %}
+		        			<li>{{ error }}</li>
+		    			{% endfor %}
+		        	</ul>
+		        {% endif %}
+				{% if bike.bike_image2 %}
+					<img class="responsive-img materialboxed" src="{{ bike.bike_image2.url }}">
+				{% endif %} 
+		        {{ form.bike_image2 }}
+		    </div>
+
+			<div class="input-field col s12 m6 l4">
+		        {% if form.bike_image3.errors %}
+		        	<ul class="errorlist">
+		        		{% for error in form.bike_image3.errors %}
+		        			<li>{{ error }}</li>
+		    			{% endfor %}
+		        	</ul>
+		        {% endif %}
+				{% if bike.bike_image3 %}
+					<img class="responsive-img materialboxed" src="{{ bike.bike_image3.url }}">
+				{% endif %} 
+		        {{ form.bike_image3 }}
+		    </div>
+		</div>
+        <button class="waves-effect waves-light btn" type="submit" name="Submit"><i class="material-icons right">save</i>Submit</button>
+    </form>
+
+{% endblock %}

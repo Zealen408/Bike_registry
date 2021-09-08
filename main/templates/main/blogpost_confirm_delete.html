@@ -1,0 +1,12 @@
+{% extends 'main/base.html' %}
+
+{% block pageTitle %}
+	Site Type
+{% endblock pageTitle %}
+
+{% block content %}
+	<form method="post" name="my_form"> {% csrf_token %}
+		<p>Are you sure you want to delete "{{ object }}"?</p>
+		<button class="waves-effect waves-light btn red" type="submit" name="Save"><i class="material-icons right">save</i>Save</button>
+	</form>
+{% endblock content %}

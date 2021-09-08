@@ -1,0 +1,92 @@
+{% extends 'main/base.html' %}
+
+
+{% block content %}
+    <blockquote>Already have an account? <strong><a href="{% url 'accounts:login' %}"> Sign in here.</a></strong></blockquote>
+    	<br>
+    <p><strong>Passwords are case senitive</strong></p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+        	<div class="input-field col s12 m6">
+		        {% if from.email.errors %}
+		        	<ul class="errorlist">
+		        		{% for error in from.email.errors %}
+		        			<li>{{ error }}</li>
+		    			{% endfor %}
+		        	</ul>
+		        {% endif %}
+			        <label for="id_email">{{ form.email.label }}:</label>
+			        {{ form.email }}
+	    	</div>
+    		<div class="input-field col s12 m6">
+		        {% if from.phone.errors %}
+		        	<ul class="errorlist">
+		        		{% for error in from.phone.errors %}
+		        			<li>{{ error }}</li>
+		    			{% endfor %}
+		        	</ul>
+		        {% endif %}
+			        <label for="id_phone">{{ form.phone.label }}:</label>
+			        <input type="text" name="phone_0" size="4" id="id_phone_0" class="tooltipped" data-html="true" data-position="bottom" data-tooltip="Format: ###-###-####"> <!-- {{ form.phone }} -->
+	    	</div>
+    	</div>
+        <div class="row">
+        	<div class="input-field col s12 m6">
+		        {% if from.first_name.errors %}
+		        	<ul class="errorlist">
+		        		{% for error in from.first_name.errors %}
+		        			<li>{{ error }}</li>
+		    			{% endfor %}
+		        	</ul>
+		        {% endif %}
+
+			        <label for="id_first_name">{{ form.first_name.label }}:</label>
+			        {{ form.first_name }}
+	    	</div>
+
+        	<div class="input-field col s12 m6">
+		        {% if from.last_name.errors %}
+		        	<ul class="errorlist">
+		        		{% for error in from.last_name.errors %}
+		        			<li>{{ error }}</li>
+		    			{% endfor %}
+		        	</ul>
+		        {% endif %}
+
+			        <label for="id_last_name">{{ form.last_name.label }}:</label>
+			        {{ form.last_name }}
+	    	</div>
+    	</div>
+   
+        <div class="row">
+        	<div class="input-field col s12">
+		        {% if from.password.errors %}
+		        	<ul class="errorlist">
+		        		{% for error in from.password1.errors %}
+		        			<li>{{ error }}</li>
+		    			{% endfor %}
+		        	</ul>
+		        {% endif %}
+			        <label for="id_password">{{ form.password1.label }}:</label>
+			        <input class="tooltipped validate invalid" data-html="true" data-position="bottom" data-tooltip="<ul><li>Your password can't be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can't be a commonly used password.</li><li>Your password can't be entirely numeric.</li></ul>" type="password" name="password1" required="" id="id_password1"><!--  {{ form.password1 }} -->
+	    	</div>
+    	</div>
+        <div class="row">
+        	<div class="input-field col s12">
+		        {% if from.password2.errors %}
+		        	<ul class="errorlist">
+		        		{% for error in from.password2.errors %}
+		        			<li>{{ error }}</li>
+		    			{% endfor %}
+		        	</ul>
+		        {% endif %}
+			        <label for="id_password">{{ form.password2.label }}:</label>
+			        <input type="password" name="password2" class="validate invalid tooltipped" required="" id="id_password2" data-html="true" data-position="bottom" data-tooltip="Password Confirmation must match previous password field exactly."> <!-- {{ form.password2 }} -->
+	    	</div>
+    	</div>
+        <button class="waves-effect waves-light btn" type="submit" name="Submit">Save</button>
+    </form>
+
+{% endblock %}

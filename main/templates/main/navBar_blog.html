@@ -1,0 +1,77 @@
+
+<!-- side Nav -->
+<ul id="slide-out" class="sidenav">
+    <li>
+  		<a class="waves-effect" href="{% url 'main:home' %}" class="brand-logo waves-effect"><strong>Bike Registry</strong></a>
+  	</li>
+	{% if user.is_authenticated %}
+		<li><a class="waves-effect" href="{% url 'accounts:profile' %}">{{ user.email }}</a></li>
+		<li><a class="waves-effect" href="{% url 'accounts:logout' %}">Logout</a></li>
+	{% else %}
+		<li><a class="waves-effect" href="{% url 'accounts:register' %}">Sign Up</a></li>
+		<li><a class="waves-effect" href="{% url 'accounts:login' %}">Login</a></li>
+	{% endif %}
+
+	<li><div class="divider"></div></li>	
+
+	{% if user.is_staff %}
+	<li>
+		<ul>
+          <li>
+            <a class="collapsible-header">Posts<i class="material-icons right">arrow_drop_down</i></a>
+            <div class="collapsible-body grey lighten-2">
+              <ul>
+				  <li><a href="{% url 'main:post_create' %}">Create</a></li>
+				  <li><a href="{% url 'main:home' %}">Published</a></li>
+				  <li><a href="{% url 'main:scheduled' %}">Scheduled</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+	</li>
+	<li><div class="divider"></div></li>	
+	<li class="no-padding grey lighten-1">
+        <ul class="collapsible collapsible-accordion">
+          <li>
+            <a class="collapsible-header">Sites<i class="material-icons right">arrow_drop_down</i></a>
+            <div class="collapsible-body grey lighten-2">
+              <ul>
+                <li><a href="{% url 'sitemanager:site_list' %}">Sites</a></li>
+                <li><a href="{% url 'sitemanager:section_list' %}">Sections</a></li>
+                <li><a href="{% url 'sitemanager:site_type_list' %}">Types</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+	</li>
+	<li><a class="waves-effect" href="/admin">Admin</a></li>
+	{% endif %}
+</ul>	
+
+
+<!-- main Nav Bar -->
+<div class="navbar-fixed">
+	<nav>
+		<div class="nav-wrapper teal lighten-2">
+			<div class="container">
+				<a href="#" data-target="slide-out" class="sidenav-trigger show-on-small show-on-med"><i class="material-icons">menu</i></a>
+				<a href="{% url 'main:home' %}" class="brand-logo waves-effect">Bike Registry</a>
+				<ul id="nav-mobile" class="right hide-on-med-and-down">
+					{% if user.is_authenticated %}
+						<li class="waves-effect"><a href="{% url 'accounts:profile' %}">{{ user.email }}</a></li>
+						<li class="waves-effect"><a href="{% url 'accounts:logout' %}">Logout</a></li>
+					{% else %}
+						<li class="waves-effect"><a href="{% url 'accounts:register' %}">Sign Up</a></li>
+						<li class="waves-effect"><a href="{% url 'accounts:login' %}">Login</a></li>
+					{% endif %}
+					{% if user.is_staff %}
+						<li><a class="waves-effect" href="/admin">admin</a></li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+	</nav>   
+</div>	
+
+
+<!-- javaScript -->

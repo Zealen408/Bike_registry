@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+
+{% block pageTitle %}
+	{{ object.title | title}}
+{% endblock pageTitle %}
+
+
+{% block content %}
+	<form method="post" name="blogPost_update_form"> {% csrf_token %}
+		<div class="row">
+			<div class="col s12 m6">
+				{{form.title.label}} {{ form.title }}
+			</div>
+			<div class="col s12 m6">
+				{{form.publish_date.label}} {{ form.publish_date }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+				{{form.post.label}} {{ form.post }}
+			</div>
+			
+		</div>
+		
+		
+		<button class="waves-effect waves-light btn" type="submit" name="Save"><i class="material-icons right">save</i>Save</button>
+	</form>
+{% endblock content %}

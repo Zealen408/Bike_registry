@@ -1,0 +1,31 @@
+{% extends 'main/base.html' %}
+
+
+
+{% block content %}
+	{% if object_list %}
+		<div class="row">
+			{% for object in object_list %}
+					<div class="col s12">
+						<div class="card hover">
+							<a href="{% url 'main:post_detail' object.slug %}">
+								<div class="card-content black-text">
+									<span class="btn teal white-text">{{ object.publish_date }}</span>
+									<span class="card-title center"><strong>{{ object.title|title}}</strong></span>
+									<p>{{ object.post | linebreaks | truncatewords:20 }}</p>
+								</div>
+							</a>
+							<div class="card-action teal lighten-2">
+								{% if user.is_staff %}
+									<a class="white-text" href="{% url 'main:post_update' object.slug %}">Edit</a>
+									<a class="white-text" href="{% url 'main:post_delete' object.slug %}">Delete</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+			{% endfor %}
+		</div>
+	{% else %}
+		{% lorem 12 p random %}
+	{% endif %}
+{% endblock content %}

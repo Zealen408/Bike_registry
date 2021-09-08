@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+<head>
+	{% block css %}
+	  <!-- Compiled and minified CSS -->
+	  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	  <!-- icons -->
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/css/materialize.min.css" integrity="sha256-qj3p6P1fJIV+Ndv7RW1ovZI2UhOuboj9GcODzcNFIN8=" crossorigin="anonymous" />
+	{% endblock css %}
+	
+	{% block pageCSS%}
+	    <style type="text/css">
+	    	.errorlist {
+	  			color: red;
+	  			font-weight: bold;
+			}
+			.phone-field-ext { display: none; }
+			#id_phone_1 { display: none; }
+	    </style>
+	{% endblock pageCSS%}
+
+            
+  <title>Bike Registry</title>
+</head>
+
+<body class="grey lighten-5">
+
+
+	{% include "main/navBar.html" %}
+	{% include "main/messages.html" %}	
+	<br>
+
+	{% block stolen %}
+		<div class="row">
+				<div class="container col s12 m3 white">
+					<div id="stolen_bikes">
+						<h3>Reported stolen:</h3>
+					</div>
+				</div>
+				<div class="col s12 m1"><br></div>
+	{% endblock %}	
+		<div class="container col s12 m7 white">
+			{% block content %}
+			<h1>Hi all,</h1>
+			<p>There is a lot of development still to do on this site. The basics are here and working, if you find something that needs improvments please let me know.</p>
+			{% endblock content %}
+		</div>	
+
+		<br><br>
+	</div>		
+	<div class="row">
+		<div class="footer grey lighten-3 col s12">
+			<span class="right">{% block footer %}
+				
+			{% endblock footer %}</span>
+			<br>
+		</div>
+	</div>
+
+	{% block javascript %}
+		<script
+		  src="https://code.jquery.com/jquery-3.3.1.min.js"
+		  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		  crossorigin="anonymous"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/js/materialize.min.js" integrity="sha256-SrBfGi+Zp2LhAvy9M1bWOCXztRU9Ztztxmu5BcYPcPE=" crossorigin="anonymous"></script>
+
+		<script>
+		$(document).ready(function(){
+
+		  // Initialize materialize data picker
+		  $('.datepicker').datepicker({'format': 'yyyy-mm-dd'});
+		  $('select').formSelect();
+
+		});
+		</script>
+	{% endblock javascript %}
+    
+		{% block script %}
+		
+		{% endblock script %}
+    <script>
+		document.addEventListener('DOMContentLoaded', function() {
+    		var elems = document.querySelectorAll('.sidenav');
+    		var instances = M.Sidenav.init(elems, );
+		});
+
+		document.addEventListener('DOMContentLoaded', function() {
+			var elems = document.querySelectorAll('.dropdown-trigger');
+			var instances = M.Dropdown.init(elems, {
+				coverTrigger: false,
+				hover: true,
+			});
+		});
+
+		M.AutoInit();
+
+    	$(function (){
+	    	var $bikes = $('#stolen_bikes')
+	    	$.ajax({
+	    		type: 'GET',
+	    		url: 'api/api-bike',
+	    		success: function(bikes) {
+	    			$.each(bikes, function(i, bike){
+	    				console.log(bike)
+	    				var image = bike.bike_image1
+	    				var brand = bike.bike_brand
+	    				var model = bike.bike_model
+	    				console.log(model)
+	    				$bikes.append('<div class="card"><div class="card-image"><img src="'+image+'"><span class="card-title"></span></div><div class="card-content">'+(brand == null ? ' ': '<p>Brand: '+brand+'</p>')+(model == null ? ' ': '<p>Model: '+model+'</p>')+'<p>Serial Number: '+bike.bike_serial_number+'</p></div><div class="card-action"><a class="btn-floating waves-effect waves-light blue" href="mailto:'+bike.owner.email+'"><i class="material-icons">email</i></a></div></div>')
+	    			});
+	    		}
+	    	});
+	    });
+	</script>
+</body>
+</html>

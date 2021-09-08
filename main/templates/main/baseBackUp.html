@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+<head>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified JavaScript -->
+<!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script> -->
+    <!-- custom styles -->
+    <style type="text/css">
+    	.errorlist {
+  			color: red;
+  			font-weight: bold;
+		}
+		.phone-field-ext { display: none; }
+		#id_phone_1 { display: none; }
+    </style>
+            
+  <title>Bike Registry</title>
+</head>
+
+<body class="grey lighten-5">
+	{% include "main/navBar.html" %}
+	{% include "main/messages.html" %}	
+	<br>
+
+	{% block stolen %}
+		<div class="row">
+				<div class="container col s12 m3 white">
+					<div id="stolen_bikes">
+						<h3>Reported stolen:</h3>
+					</div>
+				</div>
+				<div class="col s12 m1"><br></div>
+	{% endblock %}	
+		<div class="container col s12 m7 white">
+			{% block content %}
+			<h1>Hi all,</h1>
+			<p>There is a lot of development still to do on this site. The basics are here and working, if you find something that needs improvments please let me know.</p>
+			{% endblock content %}
+		</div>	
+
+		<br><br>
+	</div>		
+	<div class="row">
+		<div class="footer grey lighten-3 col s12">
+			<span class="right">{% block footer %}
+				
+			{% endblock footer %}</span>
+			<br>
+		</div>
+	</div>
+
+	<!--JavaScript at end of body for optimized loading-->
+	<!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+
+    
+		{% block script %}
+		
+		{% endblock script %}
+    <script>
+		document.addEventListener('DOMContentLoaded', function() {
+    		var elems = document.querySelectorAll('.sidenav');
+    		var instances = M.Sidenav.init(elems, );
+		});
+
+		document.addEventListener('DOMContentLoaded', function() {
+			var elems = document.querySelectorAll('.dropdown-trigger');
+			var instances = M.Dropdown.init(elems, {
+				coverTrigger: false,
+				hover: true,
+			});
+		});
+
+		M.AutoInit();
+
+    	$(function (){
+	    	var $bikes = $('#stolen_bikes')
+	    	$.ajax({
+	    		type: 'GET',
+	    		url: 'api/api-bike',
+	    		success: function(bikes) {
+	    			$.each(bikes, function(i, bike){
+	    				console.log(bike)
+	    				$bikes.append('<div class="card"><div class="card-image"><img src="'+bike.bike_image1+'"><span class="card-title"></span></div><div class="card-content"><p>Brand: '+bike.bike_brand+'</p><p>Model: '+bike.bike_model+'</p><p>Serial Number: '+bike.bike_serial_number+'</p></div><div class="card-action"><a class="btn-floating waves-effect waves-light blue" href="mailto:'+bike.owner.email+'"><i class="material-icons">email</i></a></div></div>')
+	    			});
+	    		}
+	    	});
+	    });
+	</script>
+</body>
+</html>

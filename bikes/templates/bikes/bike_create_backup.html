@@ -1,0 +1,98 @@
+{% extends 'main/base.html' %}
+{% block stolen %}
+{% endblock stolen%}
+
+
+{% block content %}
+<form>
+	<label for='id_owner'> {{ form.owner.label }}: </label> 
+	<input disabled type="text" name="" value="{{ user.email }}"> 
+</form>
+	<form method="post" enctype='multipart/form-data'>{% csrf_token %}	
+		<div class="row">
+				<input type="hidden" name="owner" id="id_owner" value="{{ user.id }}">
+			<div class="input-field col s12 m3 l4">
+		        {% if form.bike_brand.errors %}
+		        	<ul class="errorlist">
+		        		{% for error in form.bike_brand.errors %}
+		        			<li>{{ error }}</li>
+		    			{% endfor %}
+		        	</ul>
+		        {% endif %}
+ 				<label for='id_username'> {{ form.bike_brand.label }}: </label>  
+		        {{ form.bike_brand }}
+		    </div>
+			<div class="input-field col s12 m3 l4">
+		        {% if form.bike_model.errors %}
+		        	<ul class="errorlist">
+		        		{% for error in form.bike_model.errors %}
+		        			<li>{{ error }}</li>
+		    			{% endfor %}
+		        	</ul>
+		        {% endif %}
+ 				<label for='id_username'> {{ form.bike_model.label }}: </label> 
+		        {{ form.bike_model }}
+		    </div>
+		    <div class="input-field col s12 m3 l4">
+		        {% if form.bike_serial_number.errors %}
+		        	<ul class="errorlist">
+		        		{% for error in form.bike_serial_number.errors %}
+		        			<li>{{ error }}</li>
+		    			{% endfor %}
+		        	</ul>
+		        {% endif %}
+
+ 				<label for='id_username'> {{ form.bike_serial_number.label }}: </label>
+		        {{ form.bike_serial_number }}
+		    </div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12 m3 l4">
+		        {% if form.bike_image1.errors %}
+		        	<ul class="errorlist">
+		        		{% for error in form.bike_image1.errors %}
+		        			<li>{{ error }}</li>
+		    			{% endfor %}
+		        	</ul>
+		        {% endif %} 
+		        {{ form.bike_image1 }}
+		    </div>
+
+			<div class="input-field col s12 m3 l4">
+		        {% if form.bike_image2.errors %}
+		        	<ul class="errorlist">
+		        		{% for error in form.bike_image2.errors %}
+		        			<li>{{ error }}</li>
+		    			{% endfor %}
+		        	</ul>
+		        {% endif %}
+		        {{ form.bike_image2 }}
+		    </div>
+
+			<div class="input-field col s12 m3 l4">
+		        {% if form.bike_image3.errors %}
+		        	<ul class="errorlist">
+		        		{% for error in form.bike_image3.errors %}
+		        			<li>{{ error }}</li>
+		    			{% endfor %}
+		        	</ul>
+		        {% endif %}
+		        {{ form.bike_image3 }}
+		    </div>
+		</div>
+        <button class="waves-effect waves-light btn" type="submit" name="Submit"><i class="material-icons right">save</i>Submit</button>
+    </form>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save">
+</form>

@@ -1,0 +1,59 @@
+{% extends 'main/base.html' %}
+{% block stolen %}
+{% endblock stolen%}
+
+{% block content %}
+{% load materializecss %}
+<div class="container">
+	<form>
+		<div class="row">
+			<div class="input-field col s12 m6">
+ 				<label for="owner">Owner:</label>
+				<input disabled id="owner" type="text" value="{{ bike.owner.email }}">
+		    </div>
+			<div class="input-field col s12 m6">
+				<label for="Created">Created On:</label>
+				<input disabled id="Created" type="text" value="{{ bike.created_on }}">
+			</div>
+		</div>
+	</form>
+	<form method="post" enctype='multipart/form-data'>{% csrf_token %}	
+		<div class="row">
+			{{ form.owner }} 
+	        {{ form.bike_brand|materializecss:'s12 m4' }} 
+	        {{ form.bike_model|materializecss:'s12 m4' }}
+		    {{ form.bike_serial_number|materializecss:'s12 m4' }}
+		    {{ form.bike_stolen|materializecss:'s12 m4' }}
+		</div>
+		<br>
+		<div class="row">
+			<div class="input-field col s12 m4">
+				{% if bike.bike_image1 %}
+					<img class="responsive-img materialboxed" src="{{ bike.bike_image1.url }}">
+				{% endif %} 
+		    </div>
+
+			<div class="input-field col s12 m4">
+				{% if bike.bike_image2 %}
+					<img class="responsive-img materialboxed" src="{{ bike.bike_image2.url }}">
+				{% endif %} 
+		    </div>
+
+			<div class="input-field col s12 m4">
+				{% if bike.bike_image3 %}
+					<img class="responsive-img materialboxed" src="{{ bike.bike_image3.url }}">
+				{% endif %} 
+		    </div>
+		</div>
+		<div class="row">
+		        {{ form.bike_image1|materializecss:'s12 m4' }}
+		        {{ form.bike_image2|materializecss:'s12 m4' }}
+		        {{ form.bike_image3|materializecss:'s12 m4' }}
+		</div>
+		<br><br>
+		<div class="row">
+        	<button class="waves-effect waves-light btn" type="submit" name="Submit"><i class="material-icons right">save</i>Submit</button>
+    	</div>
+    </form>
+</div>
+{% endblock %}
